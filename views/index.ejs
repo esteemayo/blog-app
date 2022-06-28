@@ -1,0 +1,49 @@
+<% include partials/header %>
+
+<div class="ui main text container">
+  <% if (blogs.length===0) { %>
+  <h1 class="error-msg">There are no posts in the database</h1>
+  <% } %>
+  <!--  -->
+  <% if (blogs.length>0) { %>
+  <div class="ui huge header heading-primary">RESTful Blog App</div>
+  <div class="ui top attached segment">
+    <div class="ui divided items">
+      <% blogs.forEach(blog => { %>
+      <div class="item">
+        <div class="image">
+          <img src="<%= blog.image %>" id="image" />
+        </div>
+        <div class="content">
+          <a href="/blogs/details/<%= blog.slug %>" id="header"
+            ><%= blog.title %></a
+          >
+          <div class="meta">
+            <span
+              ><time class="review-time" datetime="<%= blog.createdAt %> "
+                ><%= h.moment(blog.createdAt).fromNow() %></time
+              ></span
+            >
+          </div>
+          <div class="description">
+            <p><%- blog.body.substring(0, 100) %>...</p>
+          </div>
+          <div class="extra">
+            <a
+              id="link-btn"
+              href="/blogs/details/<%= blog.slug %>"
+              class="ui basic floated violet button"
+            >
+              Read More
+              <i class="right chevron icon"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+  <% } %>
+</div>
+
+<% include partials/footer %>
